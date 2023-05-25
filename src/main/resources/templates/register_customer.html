@@ -1,0 +1,131 @@
+<!-- Registrar cliente -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Incluimos Bootstrap -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+<link rel="stylesheet" href="../CSS/global.css" />
+
+<title>Registrar Clientes</title>
+</head>
+<body>
+	<!-- Barra de navegación -->
+	<nav class="navbar navbar-expand bg-light p-0">
+		<!-- Logo -->
+		<a class="navbar-brand pl-2" href="../HTML/home.html"> <img
+			src="../assest/images/logo/NatAmE_2.png"
+			class="d-inline-block align-top nav-logo" alt="Logo" />
+		</a>
+		<!-- Icono de usuario -->
+		<a href="../HTML/home.html" class="user-icon pr-5 pb-2"> <img
+			src="../assest/icon/user.svg" alt="Imagen de usuario" />
+		</a>
+	</nav>
+
+	<form th:action="@{/registrar}" th:object="${cliente}" method="post">
+		<div class="container text-center">
+			<h4 class="mb-5">Registrar Cliente</h4>
+
+
+			<div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="tipoDocumento">Tipo de Documento</label> 
+						<select th:field ="*{tipoDocumento}" id = "tipoDocumento"
+							name="tipo_documento" class ="form-control">
+							<option value="CC" selected>Cédula de Ciudadanía</option>
+							<option value="CE">Cédula de Extranjería</option>
+						</select> 
+						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="identificacion">Numero de identificacion</label> <input
+							th:field="*{cedula}" type="text" class="form-control"
+							id="identificacion" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="nombre">Nombre</label> <input th:field="*{nombre}"
+							type="text" class="form-control" id="nombre" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="apellido">Apellido</label> <input
+							th:field="*{apellido}" type="text" class="form-control"
+							id="apellido" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="direccion">Direccion</label> <input
+							th:field="*{direccion}" type="text" class="form-control"
+							id="direccion" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="telefono">Telefono</label> <input
+							th:field="*{telefono}" type="text" class="form-control"
+							id="telefono" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="ciudad">Ciudad</label> <input th:field="*{ciudad}"
+							type="text" class="form-control" id="ciudad" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="email">Email</label> <input th:field="*{email}"
+							type="text" class="form-control" id="email" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="tipoIdRecomendo">Tipo Documento Recomendo</label>
+						<select th:field ="*{tipoIdRecomendo}" id = "tipoIdRecomendo"
+							name="tipo_documento" class ="form-control">
+							<option value="null" selected> Seleccionar</option>
+							<option value="CC">Cédula de Ciudadanía</option>
+							<option value="CE">Cédula de Extranjería</option>
+						</select> 
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="representante_capto">Numero Docuemento
+							recomendo</label> <input th:field="*{idRecomendo}" type="text"
+							class="form-control" id="representante_capto" />
+					</div>
+				</div>
+			</div>
+
+			<button class="btn button-general mt-4" type="submit">Guardar</button>
+		</div>
+	</form>
+</body>
+</html>

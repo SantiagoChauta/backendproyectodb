@@ -1,0 +1,108 @@
+<!-- Carrito de compras -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Incluimos Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="../CSS/global.css" />
+    <link rel="stylesheet" href="../CSS/shopping_car.css">
+    <title>Carrito de compras</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand bg-light p-0">
+      <!-- Logo -->
+      <a class="navbar-brand pl-2" href="../HTML/home.html">
+        <img
+          src="../assest/images/logo/NatAmE_2.png"
+          class="d-inline-block align-top nav-logo"
+          alt="Logo"
+        />
+      </a>
+
+      <a href="#" class="user-icon ml-auto mr-4 mb-2">
+        <img
+          src="../assest/icon/shopping-cart.svg"
+          alt="Icono de carrito de compras"
+        />
+      </a>
+      <!-- Icono de usuario -->
+      <a href="#" class="user-icon mr-3 mb-2">
+        <img src="../assest/icon/user.svg" alt="Imagen de usuario" />
+      </a>
+    </nav>
+
+    <h4 class="text-center mt-3">Carrito de compras</h4>
+    <div class="container mt-5">
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead class="car_top">
+            <tr>
+              <th scope="col">Producto</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="media">
+                  <img
+                    src="../assest/images/products/aceite_de_flores.png"
+                    class="mr-3 product-img"
+                    alt="Imagen del producto"
+                  />
+                  <div class="media-body">
+                    <h5 class="mt-0 text-left">Nombre del producto</h5>
+                  </div>
+                </div>
+              </td>
+              <td>$20.00</td>
+              <td>2</td>
+              <td>$40.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="media">
+                  <img
+                  src="../assest/images/products/aceite_de_flores.png"
+                    class="mr-3 product-img"
+                    alt="Imagen del producto"
+                  />
+                  <div class="media-body">
+                    <h5 class="mt-0 text-left">Nombre del producto</h5>
+                  </div>
+                </div>
+              </td>
+              <td>$15.00</td>
+              <td>1</td>
+              <td>$15.00</td>
+            </tr>
+            <!-- Agregar más filas para más productos -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-right">Total:</td>
+              <td>$55.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="text-center">
+        <button class="btn button-general">Pagar</button>
+      </div>
+    </div>
+    <!-- Incluimos los scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

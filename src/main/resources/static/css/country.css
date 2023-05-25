@@ -1,0 +1,30 @@
+body {
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+.form-group {
+  text-align: left;
+}
+
+select {
+  width: 100%;
+  border: 1px solid #103c15 !important;
+  
+}
+
+option {
+  text-transform: capitalize;
+}
+
+.btn{
+    background-color: #609966 !important;
+    border: none !important;
+}
+.btn:hover{
+    background-color: #3b623f !important;
+}
+

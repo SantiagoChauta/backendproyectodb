@@ -1,0 +1,163 @@
+<!-- Pagina de inicio -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Incluimos Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="../CSS/global.css" />
+    <link rel="stylesheet" href="../CSS/home.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand bg-light p-0">
+      <!-- Logo -->
+      <a class="navbar-brand pl-2" href="../HTML/home.html">
+        <img
+          src="../assest/images/logo/NatAmE_2.png"
+          class="d-inline-block align-top nav-logo"
+          alt="Logo"
+        />
+      </a>
+      <!-- Icono de usuario -->
+      <a href="../HTML/home.html" class="user-icon pr-5 pb-2">
+        <img src="../assest/icon/user.svg" alt="Imagen de usuario" />
+      </a>
+    </nav>
+
+    <div class="container-fluid mt-5">
+      <div>
+        <h2 class="text-center">¿Qué quieres hacer?</h2>
+      </div>
+      <div class="container-fluid mt-5 text-center">
+        <div class="row">
+          
+          <div class="col">
+          <form th:action="@{/comprar}" method="get">
+            <button class="btn" id="button_buy" type="submit">
+              <img
+                src="../assest/icon/shopping-cart.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Comprar
+            </button>
+            </form>
+          </div>
+          
+          <div class="col">
+          <form th:action="@{/registrar}" method="get">
+            <button class="btn" id="button_register_customer" type="submit">
+              <img
+                src="../assest/icon/register.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Registar cliente
+            </button>
+          	</form>
+          </div>
+          
+          <div class="col">
+          <form th:action="@{/ascender}" method="get">
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/ascend.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Ascender Cliente
+            </button>
+          </form>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+          <form th:action="@{/registrar_r}" method="get">
+            <button class="btn" id="button_register_agent" type="submit">
+              <img
+                src="../assest/icon/register.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Registrar Representante
+            </button>
+          </form>
+          </div>
+          <div class="col">
+          <form th:action="@{/comision}" method="get">
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/calculate.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Calcular comisión
+            </button>
+            </form>
+          </div>
+          <div class="col">
+          <form th:action="@{/cambiar_rep}" method="get">
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/switch.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Cambiar de Representante
+            </button>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+          <form th:action="@{/reporte}" method="get">  
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/report.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Generar Reporte
+            </button>
+          </form>
+          </div>
+          <div class="col">
+          <form th:action="@{/variables}" method="get">
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/modify.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Modificiar Variables
+            </button>
+          </form>
+          </div>
+          <div class="col">
+          <form th:action="@{/pedidos}" method="get">
+            <button class="btn" type="submit">
+              <img
+                src="../assest/icon/order.svg"
+                alt="Icono"
+                class="button-icon mr-2"
+              />
+              Ver mis pedidos
+            </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
