@@ -1,0 +1,25 @@
+.left-section {
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-section {
+  background-color: #EDF1D6;
+  height: 100vh;
+}
+
+.right-section img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40vw;
+}
+
+.logo {
+  width: 8vw;
+}
+

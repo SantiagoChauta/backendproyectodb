@@ -8,5 +8,6 @@ public interface IProducto {
 
     public List<Producto> findAll(int id_pais, int id_region);
     public Producto findbyId (int id_producto);
+    public List<Producto> ProductosCategoria(int pais, int region, int id_categoria);
     
 }

@@ -1,0 +1,36 @@
+
+.button-general{
+  background-color: #609966;
+  padding: 10px;
+  border-color: none !important;
+  color: #EDF1D6;
+}
+
+.button-general:hover{
+  background-color: #9DC08B;
+}
+
+.navbar-expand {
+  justify-content: space-between;
+}
+/* Para centrar el logo verticalmente y hacerlo más grande */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding-right: 0;
+}
+/* Para darle un estilo a la imagen de usuario */
+.user-icon img {
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Para hacer el fondo de la barra de navegación transparente */
+.navbar {
+  background-color: transparent !important;
+}
+.nav-logo {
+  width: 150px;
+}
+
+

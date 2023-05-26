@@ -1,0 +1,77 @@
+<!-- Pedir cambio de representante -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Incluimos Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="../CSS/global.css" />
+
+    <title>Representante de ventas</title>
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand bg-light p-0">
+      <!-- Logo -->
+      <a class="navbar-brand pl-2" href="../HTML/home.html">
+        <img
+          src="../assest/images/logo/NatAmE_2.png"
+          class="d-inline-block align-top nav-logo"
+          alt="Logo"
+        />
+      </a>
+      <!-- Icono de usuario -->
+      <a href="../HTML/home.html" class="user-icon pr-5 pb-2">
+        <img src="../assest/icon/user.svg" alt="Imagen de usuario" />
+      </a>
+    </nav>
+
+    <div class="container text-center">
+      <h4 class="mb-5">Datos de su representante de ventas</h4>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="nombre del representante" readonly/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" class="form-control" id="apellido" readonly/>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="regional">Regional</label>
+            <input type="text" class="form-control" id="regional" readonly/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="text" class="form-control" id="telefono" readonly/>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="text" class="form-control" id="email" readonly/>
+          </div>
+        </div>
+      </div>
+      <button class="btn button-general mt-4">Solicitar cambio de representante</button>
+    </div>
+  </body>
+</html>
