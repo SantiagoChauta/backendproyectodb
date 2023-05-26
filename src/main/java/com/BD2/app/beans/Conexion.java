@@ -9,12 +9,12 @@ public  class Conexion {
 
 	 public static Connection conexion;
 	 
-	 /*public static String usuario = "admin";
-	 public static String password = "1234"; */
-	 public static String usuario = "UCC102030";
-	 public static String password = "102030";
-	 //public static String URL ="jdbc:oracle:thin:admin/1234@localhost:1521:proyectodb";
-	 public static String URL= "jdbc:oracle:thin:"+usuario+"/"+password+"@localhost:1521:proyectodb";
+	 public static String usuario = "admin";
+	 public static String password = "1234";
+	 //public static String usuario = "UCC102030";
+	 //public static String password = "102030";
+	 public static String URL ="jdbc:oracle:thin:admin/1234@localhost:1521:proyectodb";
+	 //public static String URL= "jdbc:oracle:thin:"+usuario+"/"+password+"@localhost:1521:proyectodb";
 	 
 	 
 	 public static void getConexion(){

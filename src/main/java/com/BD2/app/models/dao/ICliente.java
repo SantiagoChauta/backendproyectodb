@@ -1,11 +1,8 @@
 package com.BD2.app.models.dao;
 
-
-import java.util.List;
-
-
 import com.BD2.app.models.entity.Cliente;
 
+import java.util.List;
 
 public interface ICliente {
 
