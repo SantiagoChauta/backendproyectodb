@@ -10,8 +10,8 @@ import com.BD2.app.models.entity.Cliente;
 public interface ICliente {
 
 	public List<Cliente> findAll();
-	public Cliente findById(String id);
-	public void insertar(Cliente cl);
-	public void actualizar(Cliente cl);
+	public Cliente findById(String id,String tipoDocumento);
+	public boolean insertar(Cliente cl);
+	public boolean actualizar(Cliente cl);
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.BD2.app.models.entity.*;
@@ -20,6 +21,7 @@ import com.BD2.app.models.dao.IProducto;
 import com.BD2.app.models.dao.IRepresentanteVentas;
 
 @Controller
+@RequestMapping("")
 public class Controlador {
 
 
@@ -28,27 +30,16 @@ public class Controlador {
 	
 	@Autowired
 	IRepresentanteVentas repDao;
-	
-	@Autowired
-	ICategoria categoriaDao;
-	
-	@Autowired
-	IProducto productoDao;
-	
-	@GetMapping({"","/"})
-	public String login(Model model) {
-		Usuario us = new Usuario();
-		model.addAttribute("usuario",us);
-		return "login";
-	}
-	
-	@PostMapping("/login")
-	public String loginForm(Usuario us){
-		if(Conexion.changeConnection(us.getUsuario(), us.getPassword())) {
-			System.out.println("Este ok");
-			return "home";
+		
+	@GetMapping("/login")
+	public Boolean loginForm(@RequestParam("user") String usuario, @RequestParam("password") String password){
+		System.out.println("Llamo al metodo");
+		System.out.println("El usuario es: "+usuario+"\nLa contraseña es: "+password);
+		if(Conexion.changeConnection(usuario, password)) {
+			System.out.println("Entra");
+			return true;
 		}
-		return "redirect:/";
+		return false;
 	}
 	
 	
@@ -59,21 +50,6 @@ public class Controlador {
 		return "register_customer";
 	}
 	
-	@PostMapping("/registrar")
-	public String registrarCliente(Cliente cli) {
-		cli.setIdRepresentante("12345");
-		cli.setTipoIdRepresentante("CC");
-		clienteDao.insertar(cli);
-		return "home";
-	}
-	
-	@GetMapping("/registrar_r")
-	public String datosRepresentante(Model model) {
-		Representante rep = new Representante();
-		model.addAttribute("representante",rep);
-		
-		return "register_agent";
-	}
 	
 	@PostMapping("/registrar_r")
 	public String registrarRepresentante(Representante rep) {
@@ -91,22 +67,9 @@ public class Controlador {
 		return "home";
 	}
 	
-	@GetMapping("/comprar")
-	public String comprarProductos(Model model) {
-		List<Categoria> categorias = categoriaDao.Categorias();
-		List<Categoria> subcategorias = categoriaDao.subcategorias(1);
-		List<Producto> productos = productoDao.findAll(1, 1);
-		model.addAttribute("categorias",categorias);
-		model.addAttribute("subcategorias",subcategorias);
-		model.addAttribute("productos",productos);
-		return "buy";
-	}
 	
-	@GetMapping("/comprarP") 
-	public String selCategoria(@RequestParam("id_categoria") String categoriaId) {
-		
-		return "";
-	}
+	
+	
 	
 	
 	

@@ -2,6 +2,7 @@ package com.BD2.app.models.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 
 import com.BD2.app.beans.Conexion;
+import com.BD2.app.beans.Excepciones;
 import com.BD2.app.models.entity.Cliente;
 
 @Repository
@@ -47,7 +49,7 @@ public class DaoCliente implements ICliente{
 			}
 			con.close();
 		}catch(Exception e) {
-			System.out.println("FFFFFFFFFFFFFFFFFFFFF");
+			Excepciones.excepcion=e;
 		}
 		
 		return clientes;
@@ -56,12 +58,14 @@ public class DaoCliente implements ICliente{
 	
 	
 	@Override
-	public Cliente findById(String cedula) {
+	public Cliente findById(String cedula,String tipoDocumento) {
 		Conexion.getConexion();
 		con =Conexion.conexion;
 		Cliente cliente = new Cliente(); 
 		try {
-			ps = con.prepareStatement("select * from cliente where k_idcedula = "+cedula);
+			ps = con.prepareStatement("select * from cliente where k_idcedula = ? and k_tipodocumento=?");
+			ps.setString(1, cedula);
+			ps.setString(2, tipoDocumento);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -80,7 +84,7 @@ public class DaoCliente implements ICliente{
 			}
 			con.close();
 		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			Excepciones.excepcion=e;
 		}
 		return cliente;
 	}
@@ -88,15 +92,15 @@ public class DaoCliente implements ICliente{
 
 
 	@Override
-	public void insertar(Cliente cl) {
+	public boolean insertar(Cliente cl) {
 		Conexion.getConexion();
 		con =Conexion.conexion;
 		
 		try {
 			
 			//System.out.println("Impresion numero 2");
-			
-			//cl.print(); //                                         1 2 3 4 5 6 7 8 9 10 11 12
+			con.setAutoCommit(false);
+			//cl.print(); //                                       1 2 3 4 5 6 7 8 9 10 11 12
 			ps = con.prepareStatement("insert into cliente values (?,?,?,?,?,?,?,?,?,?, ?, ?)");
 			ps.setString(1, cl.getCedula());
 			ps.setString(2, cl.getTipoDocumento());
@@ -110,8 +114,6 @@ public class DaoCliente implements ICliente{
 			ps.setString(10, cl.getTipoIdRepresentante());
 			ps.setString(11, cl.getIdRecomendo());
 			ps.setString(12, cl.getTipoIdRecomendo());
-			
-			System.out.println("Aqui si llega");
 			
 			int res = ps.executeUpdate();
 			
@@ -131,24 +133,23 @@ public class DaoCliente implements ICliente{
 			ps = con.prepareStatement(queryRole);
 			ps.execute();
 			
-			con.close();
-			con.commit();
-			con.close();
-			
-			
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
+			con.commit();			
+			return true;
+		}catch(SQLException e) {
+			Excepciones.excepcion = e;
 		}
-		
+		return false;
 	}
 
 
 
 	@Override
-	public void actualizar(Cliente cl) {
+	public boolean actualizar(Cliente cl) {
 		Conexion.getConexion();
 		con =Conexion.conexion;
 		try {
+			con.setAutoCommit(false);
+			
 			ps = con.prepareStatement("update cliente set n_nombre = ?, n_apellido=?, n_direccion=?, n_telefono=?, n_ciudad=?,n_email=?"
 					+ "  where k_idcedula =?  and k_tipodocumento=?");
 			ps.setString(1, cl.getNombre());
@@ -160,13 +161,27 @@ public class DaoCliente implements ICliente{
 			ps.setString(7, cl.getCedula());
 			ps.setString(8, cl.getTipoDocumento());
 			ps.executeUpdate();	
-			
 			con.commit();
-			con.close();
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
+		}catch(SQLException e) {
+			Excepciones.excepcion = e;
+			if (con != null) {
+				try {
+					con.rollback();
+				}catch(SQLException es) {
+					Excepciones.excepcion = es;
+				}
+			}
+			return false;
+		}finally {
+			try {
+				con.close();
+			}
+			catch(SQLException e) {
+				Excepciones.excepcion = e;
+			}
+			
 		}
-		
+		return true;
 	}
 	
 		
