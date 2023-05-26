@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.BD2.app.beans.Conexion;
 import com.BD2.app.beans.Excepciones;
 import com.BD2.app.models.entity.Usuario;
 
+@Repository
 public class DaoUsuario implements IUsuario{
 
 	private PreparedStatement ps;
@@ -32,6 +35,11 @@ public class DaoUsuario implements IUsuario{
 				usuario.setPassword(rs.getString("USERNAME"));
 				usuarios.add(usuario);
 			}
+			
+			for(Usuario u:usuarios){
+				System.out.println(u.getUsuario());
+			}
+			
 			con.close();
 		}catch(Exception e) {
 			Excepciones.excepcion=e;
