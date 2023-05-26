@@ -1,0 +1,93 @@
+<!-- Ver productos -->
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Incluimos Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="../CSS/global.css" />
+    <link rel="stylesheet" href="../CSS/buy.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand bg-light p-0">
+      <!-- Logo -->
+      <a class="navbar-brand pl-2" href="../HTML/home.html">
+        <img
+          src="../assest/images/logo/NatAmE_2.png"
+          class="d-inline-block align-top nav-logo"
+          alt="Logo"
+        />
+      </a>
+
+      <a href="#" class="user-icon ml-auto mr-4 mb-2">
+        <img
+          src="../assest/icon/shopping-cart.svg"
+          alt="Icono de carrito de compras"
+        />
+      </a>
+      <!-- Icono de usuario -->
+      <a href="#" class="user-icon mr-3 mb-2">
+        <img src="../assest/icon/user.svg" alt="Imagen de usuario" />
+      </a>
+    </nav>
+
+
+
+
+    <div class="container-fluid mt-5">
+      <div class="row">
+      
+        <div class="col-2 ml-5">
+          <h3 class="mb-5">Categorias</h3>
+          	<div th:each= "categoria: ${categorias}">
+          		<button class="btn btn-lg btn-block"  th:text="${categoria.nombre}" th:onclick="'window.location.href=\'/comprarP?id_categoria=\' + ${categoria.id_categoria}'"> </button>
+        	</div>
+        </div>
+
+        <div class="col-9">
+          <div class="row">
+            <select class="form-control ml-5">
+              <option th:each = "categoria : ${subcategorias}" th:text ="${categoria.nombre}"></option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="row mt-5">
+              <div class="col-sm" th:each="producto:${productos}">
+                <div class="image-container">
+                  <!--  <img
+                    src="../assest/images/products/aceite_de_flores.png"
+                    alt="aceite de flores"
+                    id="imagen"
+                  />-->
+                </div>
+
+                <p th:text="${producto.nombre}"></p>
+                <p th:text="${producto.precio}"></p>
+                <p th:text="${producto.iva}"></p>
+                <p th:text="${producto.stock}"></p>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incluimos los scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

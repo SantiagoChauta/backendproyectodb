@@ -23,13 +23,15 @@ public class CatalogoApiRestController {
 
 	@GetMapping("/supercategorias")
 	public List<Categoria> supercategorias(){
-		Conexion.connSystem();
+		//Conexion.connSystem();
+		Conexion.getConexion();
 		return categoriaDao.Categorias();
 	}
 	
 	@GetMapping("/subcategorias")
 	public List<Categoria> subCategorias(@RequestParam("id") int id){
-		Conexion.connSystem();
+		//Conexion.connSystem();
+		Conexion.getConexion();
 		return categoriaDao.subcategorias(id);
 	}
 	
