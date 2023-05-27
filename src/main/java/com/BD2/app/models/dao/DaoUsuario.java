@@ -36,10 +36,6 @@ public class DaoUsuario implements IUsuario{
 				usuarios.add(usuario);
 			}
 			
-			for(Usuario u:usuarios){
-				System.out.println(u.getUsuario());
-			}
-			
 			con.close();
 		}catch(Exception e) {
 			Excepciones.excepcion=e;

@@ -22,7 +22,6 @@ public class UsuarioApiRestController {
 	
 	@GetMapping("/todos")
 	public List<Usuario> buscarTodos(){
-		System.out.println("Holaaaaaaaaaaaaaaaaa");
 		return usuariodao.findAll();
 	}
 }

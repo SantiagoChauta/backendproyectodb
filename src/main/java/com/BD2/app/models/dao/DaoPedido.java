@@ -41,6 +41,29 @@ public class DaoPedido implements IPedido {
 	}
 
 	@Override
+	public Pedido findbyEstado() {
+		Conexion.getConexion();
+		con = Conexion.conexion;
+		Pedido pedido = new Pedido();
+		try {
+			ps = con.prepareStatement("select * from Pedido where k_estado = p");
+			rs = ps.executeQuery();
+			int filas = ps.getMaxRows();
+			
+			if(filas == 0) {
+				//se debe crear un nuevo pedido
+			}
+			else {
+				//se debe actualizar el pedido con el estado 'pendiente'
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return pedido;
+	}
+	
+	@Override
 	public void insertarPedido(Pedido pedido) {
 
 		Conexion.getConexion();
