@@ -30,31 +30,13 @@ public class Controlador {
 	
 	@Autowired
 	IRepresentanteVentas repDao;
-		
-	@GetMapping("/login")
-	public Boolean loginForm(@RequestParam("user") String usuario, @RequestParam("password") String password){
-		System.out.println("Llamo al metodo");
-		System.out.println("El usuario es: "+usuario+"\nLa contraseña es: "+password);
-		if(Conexion.changeConnection(usuario, password)) {
-			System.out.println("Entra");
-			return true;
-		}
-		return false;
-	}
-	
-	
-	@GetMapping("/registrar")
-	public String datosCliente(Model model) {
-		Cliente cli = new Cliente();
-		model.addAttribute("cliente",cli);
-		return "register_customer";
-	}
 	
 	
 	@PostMapping("/registrar_r")
 	public String registrarRepresentante(Representante rep) {
-		String tipoDocManager = Conexion.getUsuario().substring(1,3);
-		String numDocManager = Conexion.getUsuario().substring(3);
+		System.out.println("registrarRep");
+		String tipoDocManager = Conexion.usuario.substring(1,3);
+		String numDocManager = Conexion.usuario.substring(3);
 		Representante manager = repDao.findById(numDocManager, tipoDocManager);
 		rep.setEstado("a");
 		rep.setIdRegion(manager.getIdRegion());

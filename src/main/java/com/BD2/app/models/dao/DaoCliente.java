@@ -23,7 +23,7 @@ public class DaoCliente implements ICliente{
 	
 	@Override
 	public List<Cliente> findAll() {
-		Conexion.getConexion();
+		Conexion.connSystem();
 		con = Conexion.conexion;
 		List<Cliente> clientes = new ArrayList<>();
 		Cliente cliente;
@@ -49,7 +49,10 @@ public class DaoCliente implements ICliente{
 			}
 			con.close();
 		}catch(Exception e) {
-			Excepciones.excepcion=e;
+			Excepciones.errorMessage = e.getMessage();
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
 		}
 		
 		return clientes;
@@ -84,7 +87,10 @@ public class DaoCliente implements ICliente{
 			}
 			con.close();
 		}catch(Exception e) {
-			Excepciones.excepcion=e;
+			Excepciones.errorMessage = e.getMessage().substring(4,9);;
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
 		}
 		return cliente;
 	}
@@ -115,7 +121,7 @@ public class DaoCliente implements ICliente{
 			ps.setString(11, cl.getIdRecomendo());
 			ps.setString(12, cl.getTipoIdRecomendo());
 			
-			int res = ps.executeUpdate();
+			ps.executeUpdate();
 			
 			System.out.println("Se inserto con exito");
 			
@@ -136,7 +142,10 @@ public class DaoCliente implements ICliente{
 			con.commit();			
 			return true;
 		}catch(SQLException e) {
-			Excepciones.excepcion = e;
+			Excepciones.errorMessage = e.getMessage().substring(4,9);;
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}
@@ -163,12 +172,18 @@ public class DaoCliente implements ICliente{
 			ps.executeUpdate();	
 			con.commit();
 		}catch(SQLException e) {
-			Excepciones.excepcion = e;
+			Excepciones.errorMessage = e.getMessage().substring(4,9);;
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
 			if (con != null) {
 				try {
 					con.rollback();
 				}catch(SQLException es) {
-					Excepciones.excepcion = es;
+					Excepciones.errorMessage = e.getMessage().substring(4,9);;
+					Excepciones.hashCode = e.hashCode();
+					System.out.println(e.hashCode());
+					System.out.println(e.getMessage());
 				}
 			}
 			return false;
@@ -177,7 +192,10 @@ public class DaoCliente implements ICliente{
 				con.close();
 			}
 			catch(SQLException e) {
-				Excepciones.excepcion = e;
+				Excepciones.errorMessage = e.getMessage().substring(4,9);;
+				Excepciones.hashCode = e.hashCode();
+				System.out.println(e.hashCode());
+				System.out.println(e.getMessage());
 			}
 			
 		}

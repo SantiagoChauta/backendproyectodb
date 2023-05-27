@@ -21,14 +21,13 @@ public class DaoUsuario implements IUsuario{
 	
 	@Override
 	public List<Usuario> findAll() {
-		Conexion.getConexion();
+		Conexion.connSystem();
 		con = Conexion.conexion;
 		List<Usuario> usuarios = new ArrayList<>();
 		Usuario usuario;
 		try {
-			ps = con.prepareStatement("select USERNAME from all_users");
+			ps = con.prepareStatement("select username from all_users where username like 'UC%' or username like 'RC' or username like 'ADMIN'");
 			rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				usuario = new Usuario();
 				usuario.setUsuario(rs.getString("USERNAME"));
@@ -36,13 +35,12 @@ public class DaoUsuario implements IUsuario{
 				usuarios.add(usuario);
 			}
 			
-			for(Usuario u:usuarios){
-				System.out.println(u.getUsuario());
-			}
-			
 			con.close();
 		}catch(Exception e) {
-			Excepciones.excepcion=e;
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
 		}
 		
 		return usuarios;

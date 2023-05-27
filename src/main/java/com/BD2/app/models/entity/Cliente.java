@@ -1,6 +1,5 @@
 package com.BD2.app.models.entity;
 
-import java.io.Serializable;
 
 public class Cliente {
 	

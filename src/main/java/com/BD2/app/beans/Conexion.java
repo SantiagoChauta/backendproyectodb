@@ -2,6 +2,7 @@ package com.BD2.app.beans;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 
 
@@ -9,21 +10,20 @@ public  class Conexion {
 
 	 public static Connection conexion;
 	 
-	 public static String usuario = "admin";
-	 public static String password = "1234";
-	 //public static String usuario = "UCC102030";
-	 //public static String password = "102030";
-	 public static String URL ="jdbc:oracle:thin:admin/1234@localhost:1521:proyectodb";
-	 //public static String URL= "jdbc:oracle:thin:"+usuario+"/"+password+"@localhost:1521:proyectodb";
+	 public static String usuario;
+	 public static String password;
+	 public static String URL;
 	 
 	 
 	 public static void getConexion(){
 	        
 	        try {
-	            Class.forName("oracle.jdbc.driver.OracleDriver");
+	        	String URL="jdbc:oracle:thin:"+usuario+"/"+password+"@localhost:1521:proyectodb";
+	            //System.out.println(URL);
+	        	Class.forName("oracle.jdbc.driver.OracleDriver");
 	            conexion = (Connection) DriverManager.getConnection(URL);
 	        } catch (Exception e) {
-	            System.err.println("Error: "+e);
+	            Excepciones.errorMessage=e.getMessage();
 	            conexion=null;
 	        }
 	 
@@ -32,43 +32,25 @@ public  class Conexion {
 	 public static boolean changeConnection(String user,String pass) {
 		 usuario=user;
 		 password=pass;
-		 URL= "jdbc:oracle:thin:"+usuario+"/"+password+"@localhost:1521:proyectodb";
 		 getConexion();
-		 return (conexion!=null)? true:false; 
+		 if (conexion!=null) {
+			 try {
+				 conexion.close();
+			 }catch(SQLException e) {
+				 System.out.print(e.getMessage());
+			 }
+			 return true;
+		 }else {
+			 return false;
+		 }
 	 }
+	 
 	
 	 public static void connSystem(){
-		 URL = "jdbc:oracle:thin:admin/1234@localhost:1521:proyectodb";
+		 usuario="Admin";
+		 password="1234";
 		 getConexion();		 
 	 }
-
-	public static String getUsuario() {
-		return usuario;
-	}
-
-	public static void setUsuario(String usuario) {
-		Conexion.usuario = usuario;
-	}
-
-	public static String getPassword() {
-		return password;
-	}
-
-	public static void setPassword(String password) {
-		Conexion.password = password;
-	}
-
-	public static String getURL() {
-		return URL;
-	}
-
-	public static void setURL(String uRL) {
-		URL = uRL;
-	}
-
-	public static void setConexion(Connection conexion) {
-		Conexion.conexion = conexion;
-	}
 	 
 	 
 	

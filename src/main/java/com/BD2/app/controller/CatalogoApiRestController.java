@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.BD2.app.beans.Conexion;
 import com.BD2.app.models.dao.ICategoria;
+import com.BD2.app.models.dao.IProducto;
 import com.BD2.app.models.entity.Categoria;
+import com.BD2.app.models.entity.Producto;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -20,19 +22,26 @@ public class CatalogoApiRestController {
 	
 	@Autowired
 	private ICategoria categoriaDao;
+	
+	@Autowired
+	private IProducto productodao;
 
 	@GetMapping("/supercategorias")
 	public List<Categoria> supercategorias(){
-		//Conexion.connSystem();
-		Conexion.getConexion();
 		return categoriaDao.Categorias();
 	}
 	
 	@GetMapping("/subcategorias")
 	public List<Categoria> subCategorias(@RequestParam("id") int id){
-		//Conexion.connSystem();
-		Conexion.getConexion();
 		return categoriaDao.subcategorias(id);
 	}
+	
+	
+	@GetMapping("/productos")
+	public List<Producto> productosCategoria(@RequestParam("id_pais") int id_pais,@RequestParam("id_region") int id_region, @RequestParam("id_categoria") int id_categoria){
+		return productodao.ProductosCategoria(id_pais,id_region,id_categoria);
+	}
+	
+	
 	
 }

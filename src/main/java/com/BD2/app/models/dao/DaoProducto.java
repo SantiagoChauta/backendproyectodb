@@ -26,16 +26,25 @@ public class DaoProducto implements IProducto {
 		Producto producto = new Producto();
 
 		try {
-			ps = con.prepareStatement("select * from Pedido where k_idpedido =?");
+			ps = con.prepareStatement("select * from catalogo where id_producto=?");
 			ps.setInt(1, id_producto);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				producto.setId_categoria(rs.getInt("FK_CATEGORIA"));
-				producto.setNombre(rs.getString("N_NOMBRE"));
-				producto.setFoto(rs.getString("N_FOTO"));
-				producto.setDescripcion(rs.getString("N_DESCRIPCION"));
-				producto.setIva(rs.getInt("T_IVA"));
+				producto = new Producto();
+				producto.setId_producto(rs.getInt("ID_PRODUCTO"));
+				producto.setNombre_producto(rs.getString("NOMBRE_PRODUCTO"));
+				producto.setFoto(rs.getString("FOTO"));
+				producto.setDescripcion(rs.getString("DESCRIPCION"));
+				producto.setPrecio(rs.getDouble("Precio"));
+				producto.setIva(rs.getDouble("IVA"));
+				producto.setId_categoria(rs.getInt("ID_CATEGORIA"));
+				producto.setCategoria(rs.getString("CATEGORIA"));
+				producto.setStock(rs.getInt("STOCK"));
+				producto.setId_region(rs.getInt("ID_REGION"));
+				producto.setRegion(rs.getString("REGION"));
+				producto.setId_pais(rs.getInt("ID_PAIS"));
+				producto.setPais(rs.getString("PAIS"));
 			}
 			con.commit();
 			con.close();
@@ -55,22 +64,25 @@ public class DaoProducto implements IProducto {
 		Producto producto;
 
 		try {
-			ps = con.prepareStatement(
-					"Select * from producto p, producto_region pr,region r where p.k_idproducto = pr.fk_producto and r.k_idregion=pr.fk_region and r.fk_idpais=pr.fk_pais and r.k_idregion="
-							+ region + " and r.fk_idpais=" + pais);
-
+			ps = con.prepareStatement("select * from catalogo where id_pais=? and id_region=?");
+			ps.setInt(0,pais);
+			ps.setInt(1, region);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				producto = new Producto();
-				producto.setId_categoria(rs.getInt("K_IDPRODUCTO"));
-				producto.setId_categoria(rs.getInt("FK_IDCATEGORIA"));
-				producto.setNombre(rs.getString("N_NOMBRE"));
-				producto.setDescripcion(rs.getString("N_DESCRIPCION"));
-				producto.setIva(rs.getInt("T_IVA"));
-				producto.setPrecio(rs.getDouble("V_PRECIO"));
-				producto.setStock(rs.getInt("Q_STOCK"));
-				productos.add(producto);
+				producto.setId_producto(rs.getInt("ID_PRODUCTO"));
+				producto.setNombre_producto(rs.getString("NOMBRE_PRODUCTO"));
+				producto.setFoto(rs.getString("FOTO"));
+				producto.setDescripcion(rs.getString("DESCRIPCION"));
+				producto.setPrecio(rs.getDouble("Precio"));
+				producto.setIva(rs.getDouble("IVA"));
+				producto.setId_categoria(rs.getInt("ID_CATEGORIA"));
+				producto.setCategoria(rs.getString("CATEGORIA"));
+				producto.setStock(rs.getInt("STOCK"));
+				producto.setId_region(rs.getInt("ID_REGION"));
+				producto.setRegion(rs.getString("REGION"));
+				producto.setId_pais(rs.getInt("ID_PAIS"));
 			}
 
 			con.commit();
@@ -89,25 +101,34 @@ public class DaoProducto implements IProducto {
 		List<Producto> productos = new ArrayList<>();
 
 		Producto producto;
-
+		System.out.println("Llega al llamado");
 		try {
-			ps = con.prepareStatement(
-					"Select * from producto p, producto_region pr,region r where p.k_idproducto = pr.fk_producto and r.k_idregion=pr.fk_region and r.fk_idpais=pr.fk_pais and r.k_idregion="
-							+ region + " and r.fk_idpais=" + pais + " and fk_idcategoria = " + id_categoria);
-
+			ps = con.prepareStatement("select * from catalogo where id_pais=? and id_region=? and id_categoria=?");
+			ps.setInt(1,pais);
+			ps.setInt(2, region);
+			ps.setInt(3,id_categoria);
 			rs = ps.executeQuery();
-
+			int iteracion=0;
 			while (rs.next()) {
 				producto = new Producto();
-				producto.setId_categoria(rs.getInt("K_IDPRODUCTO"));
-				producto.setId_categoria(rs.getInt("FK_IDCATEGORIA"));
-				producto.setNombre(rs.getString("N_NOMBRE"));
-				producto.setDescripcion(rs.getString("N_DESCRIPCION"));
-				producto.setIva(rs.getInt("T_IVA"));
-				producto.setPrecio(rs.getDouble("V_PRECIO"));
-				producto.setStock(rs.getInt("Q_STOCK"));
+				producto.setId_producto(rs.getInt("ID_PRODUCTO"));
+				producto.setNombre_producto(rs.getString("NOMBRE_PRODUCTO"));
+				producto.setFoto(rs.getString("FOTO"));
+				producto.setDescripcion(rs.getString("DESCRIPCION"));
+				producto.setPrecio(rs.getDouble("Precio"));
+				producto.setIva(rs.getDouble("IVA"));
+				producto.setId_categoria(rs.getInt("ID_CATEGORIA"));
+				producto.setCategoria(rs.getString("CATEGORIA"));
+				producto.setId_supercategoria(rs.getInt("ID_SUPERCATEGORIA"));
+				producto.setStock(rs.getInt("STOCK"));
+				producto.setId_region(rs.getInt("ID_REGION"));
+				producto.setRegion(rs.getString("REGION"));
+				producto.setId_pais(rs.getInt("ID_PAIS"));
+				producto.setPais(rs.getString("PAIS"));
+				iteracion++;
 				productos.add(producto);
 			}
+			System.out.println(iteracion);
 
 			con.commit();
 			con.close();
