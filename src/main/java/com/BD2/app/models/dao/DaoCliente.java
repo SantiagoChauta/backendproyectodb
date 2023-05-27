@@ -50,8 +50,6 @@ public class DaoCliente implements ICliente{
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		
@@ -88,8 +86,6 @@ public class DaoCliente implements ICliente{
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);;
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		return cliente;
@@ -104,9 +100,6 @@ public class DaoCliente implements ICliente{
 		
 		try {
 			
-			//System.out.println("Impresion numero 2");
-			con.setAutoCommit(false);
-			//cl.print(); //                                       1 2 3 4 5 6 7 8 9 10 11 12
 			ps = con.prepareStatement("insert into cliente values (?,?,?,?,?,?,?,?,?,?, ?, ?)");
 			ps.setString(1, cl.getCedula());
 			ps.setString(2, cl.getTipoDocumento());
@@ -143,8 +136,6 @@ public class DaoCliente implements ICliente{
 			return true;
 		}catch(SQLException e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		return false;
@@ -181,8 +172,6 @@ public class DaoCliente implements ICliente{
 					con.rollback();
 				}catch(SQLException es) {
 					Excepciones.errorMessage = e.getMessage().substring(4,9);;
-					Excepciones.hashCode = e.hashCode();
-					System.out.println(e.hashCode());
 					System.out.println(e.getMessage());
 				}
 			}
@@ -193,8 +182,6 @@ public class DaoCliente implements ICliente{
 			}
 			catch(SQLException e) {
 				Excepciones.errorMessage = e.getMessage().substring(4,9);;
-				Excepciones.hashCode = e.hashCode();
-				System.out.println(e.hashCode());
 				System.out.println(e.getMessage());
 			}
 			

@@ -34,12 +34,9 @@ public class DaoUsuario implements IUsuario{
 				usuario.setPassword(rs.getString("USERNAME"));
 				usuarios.add(usuario);
 			}
-			
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		

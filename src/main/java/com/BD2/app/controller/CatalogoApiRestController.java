@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.BD2.app.beans.Conexion;
+
 import com.BD2.app.models.dao.ICategoria;
 import com.BD2.app.models.dao.IProducto;
 import com.BD2.app.models.entity.Categoria;
@@ -39,7 +39,7 @@ public class CatalogoApiRestController {
 	
 	@GetMapping("/productos")
 	public List<Producto> productosCategoria(@RequestParam("id_pais") int id_pais,@RequestParam("id_region") int id_region, @RequestParam("id_categoria") int id_categoria){
-		return productodao.ProductosCategoria(id_pais,id_region,id_categoria);
+		return productodao.productosCategoria(id_pais,id_region,id_categoria);
 	}
 	
 	

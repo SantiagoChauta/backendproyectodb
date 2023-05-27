@@ -28,20 +28,18 @@ public class RepresentanteApiRestController {
 	@PostMapping("/insertar")
 	public ResponseEntity<String> registrarCliente(@RequestBody Representante representante) {
 		representante.setEstado("a");
-		System.out.println("\n\n\n Antes\n ");
-		representante.print();
+		Representante manager = representanteDao.findById(Conexion.password, Conexion.usuario.substring(1,3));
 		
-		System.out.println("\n\n El manager es\n");
-		Representante manager = representanteDao.findById("12345", "CC");
-		manager.print();
 		representante.setIdRegion(manager.getIdRegion());
 		representante.setIdPais(manager.getIdPais());
 		representante.setIdManager(manager.getCedula());
 		representante.setTipoIdManager(manager.getTipoDocumento());
-		System.out.print("\n\n\n Despues\n");
-		representante.print();
+		
+		System.out.println("Manager");
+		manager.print();
+		
 		if(representanteDao.insertarRepresentante(representante)) {
-			System.out.println("es true");
+			
 			return Excepciones.getResponse(1);
 		}
 		return Excepciones.getResponse(0);

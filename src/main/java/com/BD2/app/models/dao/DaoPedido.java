@@ -3,12 +3,16 @@ package com.BD2.app.models.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.BD2.app.beans.Conexion;
 import com.BD2.app.beans.Excepciones;
+import com.BD2.app.models.entity.Cliente;
 import com.BD2.app.models.entity.Pedido;
+import com.BD2.app.models.entity.Producto;
 
 @Repository
 public class DaoPedido implements IPedido {
@@ -97,5 +101,7 @@ public class DaoPedido implements IPedido {
 			System.out.println(e.getMessage());
 		}
 	}
+
+
 
 }

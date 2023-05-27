@@ -1,6 +1,9 @@
 package com.BD2.app.models.dao;
 
+import java.util.List;
+
 import com.BD2.app.models.entity.Pedido;
+import com.BD2.app.models.entity.Producto;
 
 public interface IPedido {
     

@@ -22,6 +22,8 @@ public  class Conexion {
 	            //System.out.println(URL);
 	        	Class.forName("oracle.jdbc.driver.OracleDriver");
 	            conexion = (Connection) DriverManager.getConnection(URL);
+	            conexion.setAutoCommit(false);
+	     
 	        } catch (Exception e) {
 	            Excepciones.errorMessage=e.getMessage();
 	            conexion=null;
@@ -50,6 +52,16 @@ public  class Conexion {
 		 usuario="Admin";
 		 password="1234";
 		 getConexion();		 
+	 }
+	 
+	 public static void cerrarConexion() {
+		 if(conexion!=null) {
+			 try {
+				 conexion.close();
+			 }catch(SQLException e) {
+				 
+			 }
+		 }
 	 }
 	 
 	 

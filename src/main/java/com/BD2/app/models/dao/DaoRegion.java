@@ -39,8 +39,6 @@ public class DaoRegion implements IRegion {
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		
@@ -66,8 +64,6 @@ public class DaoRegion implements IRegion {
 			
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		

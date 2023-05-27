@@ -35,18 +35,11 @@ public class UsuarioApiRestController {
 	
 	@GetMapping("/conectarse")
 	public ResponseEntity<String> loginForm(@RequestParam("user") String usuario, @RequestParam("password") String password){
-		ObjectMapper mapper = new ObjectMapper();
-		String response ="";
-		try {
-			 response = mapper.writeValueAsString("true");
-		} catch (JsonProcessingException e) {
-		}
 		if(Conexion.changeConnection(usuario, password)) {
 			
-			return ResponseEntity.status(HttpStatus.OK).body(response);
+			return Excepciones.getResponse(1);
 		}else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body( Excepciones.errorMessage);
+			return Excepciones.getResponse(0);
 		}
 		
 	}

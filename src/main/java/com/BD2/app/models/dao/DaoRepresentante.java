@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.BD2.app.beans.Conexion;
 import com.BD2.app.beans.Excepciones;
-import com.BD2.app.models.entity.Cliente;
 import com.BD2.app.models.entity.Representante;
 
 
@@ -55,8 +54,6 @@ public class DaoRepresentante implements IRepresentanteVentas {
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		
@@ -93,8 +90,6 @@ public class DaoRepresentante implements IRepresentanteVentas {
 			con.close();
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		
@@ -106,7 +101,6 @@ public class DaoRepresentante implements IRepresentanteVentas {
 		Conexion.getConexion();
 		con =Conexion.conexion;
 		try {
-			con.setAutoCommit(false);
 			ps = con.prepareStatement("insert into representante_ventas values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, rep.getCedula());
 			ps.setString(2, rep.getTipoDocumento());
@@ -124,7 +118,7 @@ public class DaoRepresentante implements IRepresentanteVentas {
 			ps.setString(14, rep.getIdManager());
 			ps.setString(15, rep.getTipoIdManager());
 			ps.executeUpdate();
-			
+	
 			String usuario = "R"+rep.getTipoDocumento()+rep.getCedula();			
 			String queryUser = "create user "+ usuario +" identified by "+rep.getCedula();
 			queryUser+= " default tablespace userdef temporary tablespace usertmp quota 50m on userdef";
@@ -141,13 +135,12 @@ public class DaoRepresentante implements IRepresentanteVentas {
 			ps.execute();
 			
 			con.commit();
+			
 			con.close();
 			
 			return true;
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 			
 		}
@@ -176,8 +169,6 @@ public class DaoRepresentante implements IRepresentanteVentas {
 			return true;
 		}catch(Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
-			Excepciones.hashCode = e.hashCode();
-			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		return false;
