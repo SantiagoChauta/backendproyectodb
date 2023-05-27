@@ -49,7 +49,7 @@ public class DaoCliente implements ICliente{
 			}
 			con.close();
 		}catch(Exception e) {
-			Excepciones.errorMessage = e.getMessage();
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
 			Excepciones.hashCode = e.hashCode();
 			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
@@ -142,7 +142,7 @@ public class DaoCliente implements ICliente{
 			con.commit();			
 			return true;
 		}catch(SQLException e) {
-			Excepciones.errorMessage = e.getMessage().substring(4,9);;
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
 			Excepciones.hashCode = e.hashCode();
 			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());

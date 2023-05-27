@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.BD2.app.beans.Conexion;
+import com.BD2.app.beans.Excepciones;
 import com.BD2.app.models.entity.Periodo;
 
 @Repository
@@ -38,6 +39,9 @@ public class DaoPeriodo implements IPeriodo {
 			con.close();
 			
 		}catch(Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		return periodos;
@@ -59,6 +63,9 @@ public class DaoPeriodo implements IPeriodo {
 			con.close();
 			
 		}catch(Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		return periodo;
@@ -80,6 +87,9 @@ public class DaoPeriodo implements IPeriodo {
 			
 			
 		}catch(Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		

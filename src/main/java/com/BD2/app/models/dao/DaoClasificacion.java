@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.BD2.app.beans.Conexion;
+import com.BD2.app.beans.Excepciones;
 import com.BD2.app.models.entity.Clasificacion;
 
 
@@ -36,6 +37,9 @@ public class DaoClasificacion implements IClasificacion {
 				clasificaciones.add(clasif);
 			}
 		}catch(Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		
@@ -57,6 +61,9 @@ public class DaoClasificacion implements IClasificacion {
 				clasif.setTipo(rs.getString("I_TIPO"));
 			}
 		}catch(Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
 			System.out.println(e.getMessage());
 		}
 		

@@ -7,7 +7,7 @@ public interface IRepresentanteVentas {
 	
 	public List<Representante> findAll();
 	public Representante findById(String numeroDocumento,String tipoDocumento);
-	public void insertarRepresentante(Representante rep);
-	public void actualizarRepresentante(Representante rep);
+	public boolean insertarRepresentante(Representante rep);
+	public boolean actualizarRepresentante(Representante rep);
 	
 }
