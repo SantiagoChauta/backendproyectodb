@@ -163,7 +163,7 @@ public class DaoProducto implements IProducto {
 				producto.setCantidad(rs.getInt("CANTIDAD"));
 				producto.setPrecio(rs.getDouble("PRECIO"));
 				producto.setIva(rs.getDouble("IVA"));
-				producto.setId_region(rs.getInt("REGION"));
+				producto.setId_region(rs.getInt("IDREGION"));
 				producto.setId_pais(rs.getInt("IDPAIS"));
 				
 				productos.add(producto);

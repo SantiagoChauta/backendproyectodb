@@ -1,8 +1,10 @@
 package com.BD2.app.models.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +96,124 @@ public class DaoPedido implements IPedido {
 			ps.executeUpdate();
 			con.commit();
 			con.close();
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Override
+	public Boolean pedidoEstado(Producto producto) {
+		
+		Conexion.getConexion();
+		con = Conexion.conexion;
+		Boolean salida = true;
+		
+		try {
+			ps = con.prepareStatement(
+					"select p.i_estado estado,p.k_idpedido idpedido,p.v_total from pedido p, cliente c "
+					+ "where p.fk_idcliente=c.k_idcedula and p.fk_tipoidcliente=c.k_tipodocumento and i_estado='p' "
+					+ "and c.k_idcedula=? and c.k_tipodocumento=?"
+					+ "");
+			ps.setString(1, Conexion.password);
+			ps.setString(2, Conexion.usuario.substring(1,3));
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next() == false) {
+				//crear un nuevo pedido
+				System.out.println("No hay pedidos pendientes");
+				this.nuevoPedido(producto);
+			}
+			else {
+				//insertar en el pedido p
+				System.out.println("Si hay pedidos pendientes");
+				this.insertarPPR(rs.getInt("idpedido"), producto);
+				
+			}
+			
+			con.commit();
+			con.close();
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}
+		
+		return salida;
+	}
+
+	@Override
+	public void nuevoPedido(Producto producto) {
+
+		Conexion.getConexion();
+		con = Conexion.conexion;
+
+		try {
+			System.out.println("Creando nuevo pedido");
+			ps = con.prepareStatement("insert into pedido (v_total,q_calificacion,i_estado,f_fecha,fk_idcliente,fk_tipoidcliente) values(0,0,'p',?,?,?)");
+			ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+			ps.setString(2, Conexion.password);
+			ps.setString(3, Conexion.usuario.substring(1,3));
+			ps.executeUpdate();
+
+			con.commit();
+			con.close();
+			
+			this.pedidoEstado(producto);
+
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Override
+	public void insertarPPR(int pedido, Producto producto) {
+		Conexion.getConexion();
+		con = Conexion.conexion;
+
+		try {
+			System.out.println("Insertando producto en pedido");
+			System.out.println("ID pedido: "+pedido);
+			System.out.println("ID producto: "+producto.getId_producto());
+			ps = con.prepareStatement("insert into pedido_producto_region values (?,?,1,1,1)");
+			ps.setInt(1, pedido);
+			ps.setInt(2, producto.getId_producto());
+			ps.executeUpdate();
+
+			con.commit();
+			con.close();
+
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void pagar(int calificacion) {
+		System.out.println("entro a pagar");
+		Conexion.getConexion();
+		con = Conexion.conexion;
+
+		try {
+			ps = con.prepareStatement(
+					"update pedido q_calificacion=?, i_estado=? where fk_idcliente = ? and i_estado='p'");
+			ps.setInt(1, calificacion);
+			ps.setString(2, "e");
+			ps.setString(3, Conexion.password);
+			ps.executeUpdate();
+			con.commit();
+			con.close();
+			
 		} catch (Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
 			Excepciones.hashCode = e.hashCode();

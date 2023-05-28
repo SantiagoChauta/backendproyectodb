@@ -10,4 +10,8 @@ public interface IPedido {
     public Pedido findbyId (int id_pedido);
     public void insertarPedido (Pedido pedido);
     public void actualizarPedido (Pedido pedido);
+    public Boolean pedidoEstado (Producto producto);
+    public void nuevoPedido(Producto producto);
+    public void insertarPPR (int pedido, Producto producto);
+    public void pagar(int calificacion);
 }
