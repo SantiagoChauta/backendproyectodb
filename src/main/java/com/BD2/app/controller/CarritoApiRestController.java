@@ -47,6 +47,7 @@ public class CarritoApiRestController {
 	@PostMapping("/pagar")
 	public Boolean cambiarEstado(@RequestParam("calificacion") int calificacion){
 		System.out.println("llego a Java");
+		System.out.println(calificacion);
 		pedidoDao.pagar(calificacion);
 		return true;
 	}
