@@ -1,18 +1,15 @@
 package com.BD2.app.models.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.BD2.app.beans.Conexion;
 import com.BD2.app.beans.Excepciones;
-import com.BD2.app.models.entity.Cliente;
 import com.BD2.app.models.entity.Pedido;
 import com.BD2.app.models.entity.Producto;
 
@@ -20,6 +17,7 @@ import com.BD2.app.models.entity.Producto;
 public class DaoPedido implements IPedido {
 
 	private PreparedStatement ps;
+	private CallableStatement cs;
 	private ResultSet rs;
 	private Connection con;
 
@@ -66,7 +64,7 @@ public class DaoPedido implements IPedido {
 			ps.setString(6, pedido.getId_cliente());
 			ps.setString(7, pedido.getTipo_idcli());
 			ps.executeUpdate();
-
+			
 			con.commit();
 			con.close();
 
@@ -182,13 +180,14 @@ public class DaoPedido implements IPedido {
 			System.out.println("Insertando producto en pedido");
 			System.out.println("ID pedido: "+pedido);
 			System.out.println("ID producto: "+producto.getId_producto());
-			ps = con.prepareStatement("insert into pedido_producto_region values (?,?,1,1,1)");
+			ps = con.prepareStatement("insert into pedido_producto_region values (?,?,1,1,1)"); //aqui va el trigger de totalizar carrito
 			ps.setInt(1, pedido);
 			ps.setInt(2, producto.getId_producto());
 			ps.executeUpdate();
 
 			con.commit();
 			con.close();
+			
 
 		} catch (Exception e) {
 			Excepciones.errorMessage = e.getMessage().substring(4,9);
@@ -206,12 +205,42 @@ public class DaoPedido implements IPedido {
 
 		try {
 			ps = con.prepareStatement(
-					"update pedido q_calificacion=?, i_estado=? where fk_idcliente = ? and i_estado='p'");
+					"update pedido set q_calificacion=?, i_estado=? where fk_idcliente = ? and i_estado='p'");
 			ps.setInt(1, calificacion);
 			ps.setString(2, "e");
 			ps.setString(3, Conexion.password);
 			ps.executeUpdate();
 			con.commit();
+			con.close();
+			
+			this.factura(11);
+			
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void factura(int pedido) {
+		
+		Conexion.getConexion();
+		con = Conexion.conexion;
+
+		try {
+			cs = con.prepareCall("{? = call FU_PRUEBA(11) }");
+		    cs.registerOutParameter(1, java.sql.Types.VARCHAR);
+			
+		    cs.execute();
+		    
+		    if(cs.getBoolean(1)) {
+		    	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		    }
+		    else {
+		    	System.out.println("no");
+		    }
 			con.close();
 			
 		} catch (Exception e) {
@@ -222,6 +251,25 @@ public class DaoPedido implements IPedido {
 		}
 	}
 
-
-
+	@Override
+	public void eliminar(int producto) {
+		Conexion.getConexion();
+		con = Conexion.conexion;
+		
+		try {
+			ps = con.prepareStatement("delete from pedido_producto_region where fk_idproducto = ? and fk_idpedido = (select k_idpedido from pedido where fk_idcliente = ? and i_estado='p')");
+			ps.setInt(1, producto);
+			ps.setString(2, Conexion.password);
+			
+			rs = ps.executeQuery();
+			
+			con.commit();
+			con.close();
+		} catch (Exception e) {
+			Excepciones.errorMessage = e.getMessage().substring(4,9);
+			Excepciones.hashCode = e.hashCode();
+			System.out.println(e.hashCode());
+			System.out.println(e.getMessage());
+		}	
+	}
 }
